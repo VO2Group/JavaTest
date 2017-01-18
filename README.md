@@ -4,26 +4,27 @@
 1. Ensure your JAVA_HOME is welle defined and pointing to a java8+ JDK
 
 2. Checkout the project and run the following command to start the server :
-- on windows :
 
-    `mvnw.cmd spring-boot:run`
+    - on windows :
 
-- on linux/mac :
+        `mvnw.cmd spring-boot:run`
 
-    `./mvnw spring-boot:run`
+    - on linux/mac :
+
+        `./mvnw spring-boot:run`
  
- 3. Checking all is working :
- Visit 
+3. Checking all is working :
+    Visit 
     http://localhost:8080/
     for web sample page or 
     http://localhost:8080/rest/samples for REST API
      
     
 <h2>In depth..</h2>
-The default embedded server (embedded tomcat) and in memory relational database (hsql) are used.
+A default embedded server (embedded tomcat) and an in memory relational database (hsql) are used.
 There are 2 mains controllers/entry points, a service component and some domain's staff. 
 - _REST Controller_ : com.vo2.javatest.mvc.controllers.SampleRestController
-    - It exposes "sample" resource containing just id (key) and message properties
+    - It exposes "sample" resource containing just "id" (key) and "message" properties
     - You can use Postman to quick test REST API 
     (https://www.getpostman.com/docs/)
     - To list all available "samples" : 
@@ -36,17 +37,17 @@ There are 2 mains controllers/entry points, a service component and some domain'
         `GET http://localhost:8080/rest/sample/1`
         
         {see SampleRestController#byIdMessage method}
-    - To list all samples with message containing a substring
+    - To list all samples which message contains a substring
          
         `GET http://localhost:8080/rest/sample/like/mess` (will list all available samples with message contains "mess")
         
         {see SampleRestController#likeMessage method}
     - //TODO Add CRUD samples (POST/PUT/PATCH/DELETE)
 - _Web Controller_ : com.vo2.javatest.mvc.controllers.SampleWebController
-    There is only one method on root which points to a thymeleaf template (src/main/resources/templates/sample.html)
+    There is only one method on root "/" using a thymeleaf template (src/main/resources/templates/sample.html)
     
-- _Service Layer_ : packaged in com.vo2.javatest.services.SampleService. The single service found calls the data layer and convert returned database entities to disconnected DTOs
-- _Domain / DATA Layer_ : packaged in com.vo2.javatest.domain and consists of JPA entities definition, DTOs and low level data components : DAO/Spring DATA Repositories
+- _Service Layer_ : packaged in com.vo2.javatest.services.SampleService which calls the data layer and convert returned database entities into disconnected DTOs
+- _Domain / DATA Layer_ : packaged in com.vo2.javatest.domain => JPA entities definition, DTOs and low level data components (DAO/Spring DATA Repositories)
 
 <h2>How to unit test?</h2>
 //TODO
