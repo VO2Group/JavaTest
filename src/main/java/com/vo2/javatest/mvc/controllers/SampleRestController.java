@@ -33,9 +33,9 @@ public class SampleRestController {
         return ResponseEntity.ok(dto);
     }
 
-    @RequestMapping(method = {RequestMethod.GET}, path = "/sample/like/{message}", produces = "application/json")
-    public ResponseEntity<List<SampleDto>> likeMessage(@PathVariable(name = "message") String message) {
-        List<SampleDto> listOfDto = sampleService.fetchByMessagePart(message);
+    @RequestMapping(method = {RequestMethod.GET}, path = "/samples", produces = "application/json")
+    public ResponseEntity<List<SampleDto>> allMessages() {
+        List<SampleDto> listOfDto = sampleService.loadAll();
         if (listOfDto.isEmpty()) {
             //404
             return ResponseEntity.notFound().build();
@@ -57,9 +57,9 @@ public class SampleRestController {
         return ResponseEntity.ok(dto.get());
     }
 
-    @RequestMapping(method = {RequestMethod.GET}, path = "/samples", produces = "application/json")
-    public ResponseEntity<List<SampleDto>> allMessages() {
-        List<SampleDto> listOfDto = sampleService.loadAll();
+    @RequestMapping(method = {RequestMethod.GET}, path = "/sample/like/{message}", produces = "application/json")
+    public ResponseEntity<List<SampleDto>> likeMessage(@PathVariable(name = "message") String message) {
+        List<SampleDto> listOfDto = sampleService.fetchByMessagePart(message);
         if (listOfDto.isEmpty()) {
             //404
             return ResponseEntity.notFound().build();
@@ -68,6 +68,7 @@ public class SampleRestController {
         //200
         return ResponseEntity.ok(listOfDto);
     }
+
 
 
 }
