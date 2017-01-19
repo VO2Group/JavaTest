@@ -2,7 +2,7 @@
 
 <h2>Quick start!</h2>
 
-1. Ensure your JAVA_HOME is welle defined and pointing to a java8+ JDK
+1. Ensure your JAVA_HOME is well defined and pointing to a java8+ JDK
 
 2. Checkout the project and run the following command to start the server :
 
@@ -13,6 +13,9 @@
     - on linux/mac :
 
         `./mvnw spring-boot:run`
+
+    - from your IDE :
+    run or debug [JavaTestApplication](./src/main/java/com/vo2/JavaTestApplication.java) (class annotated with @SpringBootApplication)
  
 3. Checking all is working :
     Visit 
@@ -51,11 +54,12 @@ There are 2 mains controllers/entry points, a service component and some domain'
 - _Service Layer_ : packaged in com.vo2.javatest.services.SampleService which calls the data layer and convert returned database entities into disconnected DTOs
 - _Domain / DATA Layer_ : packaged in com.vo2.javatest.domain => JPA entities definition, DTOs and low level data components (DAO/Spring DATA Repositories)
 
-<h2>How to unit test?</h2>
+<h2>How to test with junit?</h2>
 
+- For a simple unit test for a service class, please refer to [SampleServiceTest](./src/test/java/com/vo2/javatest/services/SampleServiceTest.java)
 - There is a _**real integration test**_ with embedded server running on a random port in [JavaTestOnRandomPortRESTTests](./src/test/java/com/vo2/JavaTestOnRandomPortRESTTests.java)
 - There is a _**mocked integration test**_ without starting a real servlet context but a mocked one and with a mock behaviour for the service in [JavaTestOnMockRESTTests](./src/test/java/com/vo2/JavaTestOnMockRESTTests.java)
-- //TODO a simple unit test for service layer validation
+- Finally, to test spring data repository with a real call to JPA behind a fresh in memory database, please look at [SampleRepositoryTest](./src/test/java/com/vo2/javatest/domain/repositories/SampleRepositoryTest.java)
 
 <h2>Where is the documentation?</h2>
 
