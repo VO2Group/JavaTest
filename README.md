@@ -1,6 +1,6 @@
-<h1>Sample JAVA App with embedded server</h1>
+#Sample JAVA App with embedded server
 
-<h2>Quick start!</h2>
+##Quick start!
 
 1. Ensure your JAVA_HOME is well defined and pointing to a java8+ JDK
 
@@ -24,7 +24,7 @@
     [/rest/hellovo2](http://localhost:8080/rest/hellovo2) for REST API
      
     
-<h2>In depth..</h2>
+##In depth..
 
 A default embedded server (embedded tomcat) and an in memory relational database (hsql) are used.
 There are 2 mains controllers/entry points, a service component and some domain's staff. 
@@ -35,26 +35,59 @@ There are 2 mains controllers/entry points, a service component and some domain'
         
         `GET http://localhost:8080/rest/samples`
         
-        {see [SampleRestController#allMessages](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L37) method}
+        {see [SampleRestController#allMessages](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L39) method}
+
     - To access a single sample by its id
         
         `GET http://localhost:8080/rest/sample/1`
         
-        {see   [SampleRestController#byIdMessage](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L49) method}
+        {see   [SampleRestController#byIdMessage](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L52) method}
 
     - To list all samples which message contains a substring
          
         `GET http://localhost:8080/rest/sample/like/mess` (will list all available samples with message that contains "mess")
         
-        {see [SampleRestController#likeMessage](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L61) method}
-    - //TODO Add CRUD samples (POST/PUT/PATCH/DELETE)
+        {see [SampleRestController#likeMessage](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L128) method}
+
+    - Ta add a new sample
+
+        `POST http://localhost:8080/rest/sample`
+        and with json as body :
+        ```javascript
+        {
+            "message": "text of message here"
+        }
+        ```
+
+        which will return the sample created and a http status 200 on success or a bad request status 403 otherwise
+        ```javascript
+        {
+            "id": 3,
+            "message": "text of message here"
+        }
+        ```
+
+        {see [SampleRestController#addSample](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L66) method}
+
+    - To update an existing sample
+
+        `PUT http://localhost:8080/rest/sample/1` (with same body as when adding a new sample)
+
+        {see [SampleRestController#updateSample](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L85) method}
+
+    - To delete an entry by id
+
+        `DELETE http://localhost:8080/rest/sample/3` (delete sample with id 3)
+
+        {see [SampleRestController#deleteSample](./src/main/java/com/vo2/javatest/mvc/controllers/SampleRestController.java#L109) method}
+
 - _Web Controller_ : com.vo2.javatest.mvc.controllers.SampleWebController
     There is only one method on root "/" using a thymeleaf template (src/main/resources/templates/sample.html)
     
 - _Service Layer_ : packaged in com.vo2.javatest.services.SampleService which calls the data layer and convert returned database entities into disconnected DTOs
 - _Domain / DATA Layer_ : packaged in com.vo2.javatest.domain => JPA entities definition, DTOs and low level data components (DAO/Spring DATA Repositories)
 
-<h2>How to test with junit?</h2>
+##How to test with junit?
 
 - For a simple unit test for a service class, please refer to [SampleServiceTest](./src/test/java/com/vo2/javatest/services/SampleServiceTest.java)
 - There is a _**real integration test**_ with embedded server running on a random port in [JavaTestOnRandomPortRESTTests](./src/test/java/com/vo2/JavaTestOnRandomPortRESTTests.java)

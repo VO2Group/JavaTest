@@ -35,6 +35,14 @@ public class SampleEntity implements Serializable {
         this.message = message;
     }
 
+    @Override
+    public String toString() {
+        return "SampleEntity{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                '}';
+    }
+
     @Transient
     public SampleDto toDto() {
         SampleDto dto = new SampleDto();
