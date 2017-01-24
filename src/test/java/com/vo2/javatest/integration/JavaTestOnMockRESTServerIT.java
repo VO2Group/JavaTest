@@ -1,4 +1,4 @@
-package com.vo2;
+package com.vo2.javatest.integration;
 
 import com.vo2.javatest.domain.dto.SampleDto;
 import com.vo2.javatest.services.SampleService;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class JavaTestOnMockRESTTests {
+public class JavaTestOnMockRESTServerIT {
 
 	@Autowired
 	private MockMvc mockMvc;

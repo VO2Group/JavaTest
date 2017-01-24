@@ -1,6 +1,6 @@
-#Sample JAVA App with embedded server
+# Sample JAVA App with embedded server
 
-##Quick start!
+## Quick start!
 
 1. Ensure your JAVA_HOME is well defined and pointing to a java8+ JDK
 
@@ -24,7 +24,7 @@
     [/rest/hellovo2](http://localhost:8080/rest/hellovo2) for REST API
      
     
-##In depth..
+## In depth..
 
 A default embedded server (embedded tomcat) and an in memory relational database (hsql) are used.
 There are 2 mains controllers/entry points, a service component and some domain's staff. 
@@ -87,14 +87,37 @@ There are 2 mains controllers/entry points, a service component and some domain'
 - _Service Layer_ : packaged in com.vo2.javatest.services.SampleService which calls the data layer and convert returned database entities into disconnected DTOs
 - _Domain / DATA Layer_ : packaged in com.vo2.javatest.domain => JPA entities definition, DTOs and low level data components (DAO/Spring DATA Repositories)
 
-##How to test with junit?
+## How to test?
+
+JUnit is used for UT (**/**Test.java) or IT integration tests (**/**IT.java)
 
 - For a simple unit test for a service class, please refer to [SampleServiceTest](./src/test/java/com/vo2/javatest/services/SampleServiceTest.java)
-- There is a _**real integration test**_ with embedded server running on a random port in [JavaTestOnRandomPortRESTTests](./src/test/java/com/vo2/JavaTestOnRandomPortRESTTests.java)
-- There is a _**mocked integration test**_ without starting a real servlet context but a mocked one and with a mock behaviour for the service in [JavaTestOnMockRESTTests](./src/test/java/com/vo2/JavaTestOnMockRESTTests.java)
+- There is an _**integration test**_ with embedded server running on a random port in [JavaTestOnRandomPortIT](./src/test/java/com/vo2/javatest/integration/JavaTestOnRandomPortIT.java)
+- There is a _**mocked integration test**_ without starting a real servlet context but a mocked one and with a mock behaviour for the service in [JavaTestOnMockRESTServerIT](./src/test/java/com/vo2/javatest/JavaTestOnMockRESTServerIT.java)
 - Finally, to test spring data repository with a real call to JPA behind a fresh in memory database, please look at [SampleRepositoryTest](./src/test/java/com/vo2/javatest/domain/repositories/SampleRepositoryTest.java)
 
-<h2>Where is the documentation?</h2>
+To run unit tests and simple integration tests :
+
+   `mvnw clean verify`
+
+To skip integration tests :
+
+   `mvnw clean verify -DskipITs`
+
+To run only integration tests :
+
+   `mvnw clean verify -DskipTests`
+
+## Unsing Docker
+Docker tests (**/**DockerIT.java) are integration tests that are skipped by default.
+On a Docker host, you may start them by running :
+
+   `mvnw clean verify -Docker`
+
+The project uses [fabric8io/docker-maven-plugin](https://dmp.fabric8.io/) maven plugin which loads a [Dockerfile](./src/min/docker/Dockerfile)
+
+
+## Where is the documentation?
 
 The Spring Boot project is well documented [here](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/),
 the Spring DATA JPA sub project is [here](http://docs.spring.io/spring-data/jpa/docs/current/reference/html/). Visit this link for complete documentation about

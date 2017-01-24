@@ -1,4 +1,4 @@
-package com.vo2;
+package com.vo2.javatest.integration;
 
 import com.vo2.javatest.domain.dto.SampleDto;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class JavaTestOnRandomPortRESTTests {
+public class JavaTestOnRandomPortIT {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
