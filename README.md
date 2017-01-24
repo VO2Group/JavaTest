@@ -114,7 +114,7 @@ On a Docker host, you may start them by running :
 
    `mvnw clean verify -Docker`
 
-The project uses [fabric8io/docker-maven-plugin](https://dmp.fabric8.io/) maven plugin which loads a [Dockerfile](./src/min/docker/Dockerfile)
+The project uses [fabric8io/docker-maven-plugin](https://dmp.fabric8.io/) maven plugin which loads a [Dockerfile](./src/main/docker/Dockerfile)
 
 
 ## Where is the documentation?
