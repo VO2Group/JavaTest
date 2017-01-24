@@ -89,7 +89,7 @@ There are 2 mains controllers/entry points, a service component and some domain'
 
 ## How to test?
 
-JUnit is used for UT (**/**Test.java) or IT integration tests (**/**IT.java)
+JUnit is used for UT (\*\*/\*\*Test.java) or IT integration tests (\*\*/\*\*IT.java)
 
 - For a simple unit test for a service class, please refer to [SampleServiceTest](./src/test/java/com/vo2/javatest/services/SampleServiceTest.java)
 - There is an _**integration test**_ with embedded server running on a random port in [JavaTestOnRandomPortIT](./src/test/java/com/vo2/javatest/integration/JavaTestOnRandomPortIT.java)
@@ -109,7 +109,7 @@ To run only integration tests :
    `mvnw clean verify -DskipTests`
 
 ## Unsing Docker
-Docker tests (**/**DockerIT.java) are integration tests that are skipped by default.
+Docker tests (\*\*/\*\*DockerIT.java) are integration tests that are skipped by default.
 On a Docker host, you may start them by running :
 
    `mvnw clean verify -Docker`
