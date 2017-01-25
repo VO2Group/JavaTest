@@ -62,7 +62,7 @@ There are 2 mains controllers/entry points, a service component and some domain'
         which will return the sample created and a http status 200 on success or a bad request status 403 otherwise
         ```javascript
         {
-            "id": 3,
+            "id": 4,
             "message": "text of message here"
         }
         ```
@@ -117,7 +117,7 @@ To run only integration tests :
 
 ## Package and run as docker container for integration tests
 
-Docker tests (\*\*/\*\*DockerIT.java) are integration tests that are skipped by default.
+Docker tests (satisfying pattern \*\*/\*\*DockerIT.java as [SampleDockerIT.java](./src/test/java/com/vo2/javatest/integration/docker/SampleDockerIT.java)) are integration tests that are skipped by default.
 
 On a Docker host, you may start them by running :
 
@@ -129,7 +129,7 @@ maven lifecycle binding, ...)
 
 ## Running as _prod_ profile
 
-  `mvnw mvn spring-boot:run -Drun.profiles=prod`
+  `mvnw spring-boot:run -Drun.profiles=prod`
 
 The [application-prod.properties](./src/main/resources/application-prod.properties) will override and extend the default [application.properties](./src/main/resources/application.properties)
 
