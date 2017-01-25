@@ -10,6 +10,7 @@ import java.io.Serializable;
  * Sample Entity JPA compliant
  */
 @Entity
+@Table(name = "samples")
 public class SampleEntity implements Serializable {
 
     @Id

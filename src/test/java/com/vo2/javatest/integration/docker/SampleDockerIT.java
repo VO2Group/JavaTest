@@ -1,12 +1,16 @@
 package com.vo2.javatest.integration.docker;
 
 import com.vo2.javatest.domain.dto.SampleDto;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +23,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SampleDockerIT {
 
     private static final String HOST = "http://localhost/";
-    private RestTemplate restTemplate = new RestTemplate();
+    private static RestTemplate restTemplate = new RestTemplate();
+
+    /**
+     * Check at startup that db is initialized and migrated
+     */
+    @BeforeClass
+    public static void migrateToolShouldRun() throws Exception {
+        System.out.println("Running Docker Test migrateShouldRun..");
+        //HAVING : assuming that docker has started and expose application to host on port 80
+
+
+        //WHEN : try to extract all samples
+        ResponseEntity<List<SampleDto>> response = restTemplate.exchange(HOST + "/rest/samples", HttpMethod.GET, HttpEntity.EMPTY, new ParameterizedTypeReference<List<SampleDto>>() {
+        });
+
+        //THEN : check that returns an array of samples
+        assertThat(response.getStatusCode() ==  HttpStatus.OK);
+        List<SampleDto> samples = response.getBody();
+        assertThat(samples).isNotNull();
+        assertThat(samples).isNotEmpty();
+        assertThat(samples).hasSize(3);
+
+        assertThat(samples.get(0).getMessage()).isEqualTo("First message");
+        assertThat(samples.get(1).getMessage()).isEqualTo("Second message");
+        assertThat(samples.get(2).getMessage()).startsWith("new message");
+
+    }
 
 
     @Test
@@ -53,5 +83,6 @@ public class SampleDockerIT {
         assertThat(response.getBody().getMessage()).startsWith("REST GET called. Loaded on ");
 
     }
+
 
 }

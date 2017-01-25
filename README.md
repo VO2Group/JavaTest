@@ -26,7 +26,7 @@
     
 ## In depth..
 
-A default embedded server (embedded tomcat) and an in memory relational database (hsql) are used.
+A default embedded server (embedded tomcat) and an in memory relational database (hsql) are used with the default profile.
 There are 2 mains controllers/entry points, a service component and some domain's staff. 
 - _REST Controller_ : com.vo2.javatest.mvc.controllers.SampleRestController
     - It exposes "sample" resource containing just "id" (key) and "message" properties
@@ -87,6 +87,12 @@ There are 2 mains controllers/entry points, a service component and some domain'
 - _Service Layer_ : packaged in com.vo2.javatest.services.SampleService which calls the data layer and convert returned database entities into disconnected DTOs
 - _Domain / DATA Layer_ : packaged in com.vo2.javatest.domain => JPA entities definition, DTOs and low level data components (DAO/Spring DATA Repositories)
 
+## Database "versioning" and migration tool
+
+The project use [Liquibase](http://www.liquibase.org/) to create database and initialize data in samples table.
+
+All changes are listed in changelog yaml [file](./src/main/resources/db/changelog/db.changelog-master.yaml).
+
 ## How to test?
 
 JUnit is used for UT (\*\*/\*\*Test.java) or IT integration tests (\*\*/\*\*IT.java)
@@ -108,13 +114,29 @@ To run only integration tests :
 
    `mvnw clean verify -DskipTests`
 
-## Unsing Docker
+
+## Package and run as docker container for integration tests
+
 Docker tests (\*\*/\*\*DockerIT.java) are integration tests that are skipped by default.
+
 On a Docker host, you may start them by running :
 
    `mvnw clean verify -Docker`
 
-The project uses [fabric8io/docker-maven-plugin](https://dmp.fabric8.io/) maven plugin which loads a [Dockerfile](./src/main/docker/Dockerfile)
+The project uses [fabric8io/docker-maven-plugin](https://dmp.fabric8.io/) maven plugin which loads a [Dockerfile](./src/main/docker/Dockerfile). The pom.xml [section](./pom.xml#L136) add other details (port number,
+maven lifecycle binding, ...)
+
+
+## Running as _prod_ profile
+
+  `mvnw mvn spring-boot:run -Drun.profiles=prod`
+
+The [application-prod.properties](./src/main/resources/application-prod.properties) will override and extend the default [application.properties](./src/main/resources/application.properties)
+
+This profile require a postgres database running on 5432 port. This requirement may be achieved with docker [postgres image](https://hub.docker.com/_/postgres/) :
+
+  `docker pull postgres`
+  `docker run --name postgres-javatest-prod -e POSTGRES_PASSWORD=passw0rd postgres`
 
 
 ## Where is the documentation?

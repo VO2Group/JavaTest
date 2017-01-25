@@ -96,22 +96,4 @@ public class SampleService {
         LOG.info("successfully removed entity of id {}", id);
     }
 
-    /**
-     * here we pre fill database with samples at startup
-     */
-    @PostConstruct
-    private void loadApplicationData() {
-        LOG.info("loadApplicationData : Initial creation of sample entities in database");
-        addSample("First message");
-        addSample("Second message");
-    }
-
-    private void addSample(String message) {
-        SampleEntity entity = new SampleEntity();
-        entity.setMessage(message);
-        SampleEntity saved = sampleRepository.save(entity);
-        LOG.info("successfully added sample with id {} on startup", saved.getId());
-        LOG.debug("added sample on startup {}", saved);
-    }
-
 }
