@@ -215,9 +215,8 @@
                                             <run>
                                                 <ports>host.port:8080</ports>
                                                 <log>
-                                                    <prefix>TC</prefix>
+                                                    <prefix>WEB------->></prefix>
                                                     <date>NONE</date>
-
                                                 </log>
                                                 <wait>
                                                     <!--<http>-->
@@ -226,6 +225,26 @@
                                                     <!--<status>200</status>-->
                                                     <!--</http>-->
                                                     <log>Tomcat started on port</log>
+                                                    <time>20000</time>
+                                                </wait>
+                                                <links>
+                                                    <link>database:postgres</link>
+                                                </links>
+                                            </run>
+                                        </image>
+                                        <image>
+                                            <alias>database</alias>
+                                            <name>postgres</name>
+                                            <run>
+                                                <env>
+                                                    <POSTGRES_PASSWORD>passw0rd</POSTGRES_PASSWORD>
+                                                </env>
+                                                <log>
+                                                    <prefix>POSTGRES-->></prefix>
+                                                    <date>NONE</date>
+                                                </log>
+                                                <wait>
+                                                    <log>database system is ready to accept connections</log>
                                                     <time>20000</time>
                                                 </wait>
                                             </run>

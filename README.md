@@ -126,6 +126,7 @@ On a Docker host, you may start them by running :
 The project uses [fabric8io/docker-maven-plugin](https://dmp.fabric8.io/) maven plugin which loads a [Dockerfile](./src/main/docker/Dockerfile). The pom.xml [section](./pom.xml#L136) add other details (port number,
 maven lifecycle binding, ...)
 
+There are 2 containers : the web application and Postgresql db. After tests run, all containers are stopped.
 
 ## Running as _prod_ profile
 
@@ -136,6 +137,7 @@ The [application-prod.properties](./src/main/resources/application-prod.properti
 This profile require a postgres database running on 5432 port. This requirement may be achieved with docker [postgres image](https://hub.docker.com/_/postgres/) :
 
   `docker pull postgres`
+
   `docker run --name postgres-javatest-prod -e POSTGRES_PASSWORD=passw0rd postgres`
 
 
